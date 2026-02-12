@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lunga Mzimkulu — Service Delivery / Service Coordinator Portfolio</title>
+  <meta name="description" content="Service Delivery / Service Coordinator portfolio: ticketing system automation, SLA dashboards, service reporting, and process improvement." />
+  <style>
+    :root{
+      --bg:#0b1220;
+      --card:#0f1a33;
+      --muted:#9fb0d0;
+      --text:#eaf0ff;
+      --accent:#6ee7ff;
+      --accent2:#a78bfa;
+      --border:rgba(255,255,255,.10);
+      --shadow: 0 18px 40px rgba(0,0,0,.35);
+      --radius:18px;
+      --max:1100px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 20% -10%, rgba(110,231,255,.18), transparent 60%),
+        radial-gradient(900px 500px at 90% 0%, rgba(167,139,250,.18), transparent 55%),
+        linear-gradient(180deg, #070b16, var(--bg));
+      line-height:1.5;
+    }
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 80px}
+
+    /* Top bar */
+    header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: rgba(11,18,32,.62);
+      border-bottom: 1px solid var(--border);
+    }
+    .topbar{max-width:var(--max); margin:0 auto; padding:14px 18px; display:flex; align-items:center; justify-content:space-between; gap:16px}
+    .brand{display:flex; align-items:center; gap:10px}
+    .logo{
+      width:34px; height:34px; border-radius:12px;
+      background: linear-gradient(135deg, rgba(110,231,255,.95), rgba(167,139,250,.95));
+      box-shadow: 0 10px 22px rgba(110,231,255,.12);
+    }
+    .brand strong{font-size:14px; letter-spacing:.2px}
+    .brand span{display:block; font-size:12px; color:var(--muted)}
+    nav{display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:flex-end}
+    nav a{
+      font-size:13px; color:var(--muted);
+      padding:8px 10px; border-radius:999px;
+      border: 1px solid transparent;
+    }
+    nav a:hover{color:var(--text); border-color: var(--border); background: rgba(255,255,255,.04)}
+
+    /* Hero */
+    .hero{padding:40px 0 10px}
+    .grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:18px;
+    }
+    @media (max-width: 920px){.grid{grid-template-columns:1fr}}
+    .card{
+      background: rgba(15,26,51,.78);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .hero-card{padding:26px}
+    .kicker{
+      display:inline-flex; align-items:center; gap:8px;
+      font-size:12px; color:var(--muted);
+      padding:6px 10px; border-radius:999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.03);
+    }
+    .dot{width:8px; height:8px; border-radius:999px; background: var(--accent)}
+    h1{margin:14px 0 10px; font-size:38px; line-height:1.1; letter-spacing:-.8px}
+    @media (max-width: 520px){h1{font-size:32px}}
+    .lead{color:var(--muted); font-size:15px; max-width:62ch}
+    .cta-row{display:flex; gap:10px; flex-wrap:wrap; margin-top:18px}
+    .btn{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:10px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      font-size:13px;
+      color:var(--text);
+      cursor:pointer;
+    }
+    .btn:hover{background: rgba(255,255,255,.06)}
+    .btn.primary{
+      border-color: rgba(110,231,255,.35);
+      background: linear-gradient(135deg, rgba(110,231,255,.16), rgba(167,139,250,.12));
+    }
+    .pill-row{display:flex; gap:8px; flex-wrap:wrap; margin-top:18px}
+    .pill{
+      font-size:12px; color:var(--muted);
+      padding:7px 10px; border-radius:999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.02);
+    }
+
+    /* Sidebar */
+    .side{padding:18px}
+    .side h3{margin:4px 0 10px; font-size:14px}
+    .mini{display:grid; gap:10px}
+    .mini .box{
+      padding:12px; border-radius:16px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.02);
+    }
+    .label{font-size:12px; color:var(--muted)}
+    .value{font-size:13px; margin-top:4px}
+    .links{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px}
+    .chip{
+      font-size:12px; padding:7px 10px; border-radius:999px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      color:var(--muted);
+    }
+    .chip:hover{color:var(--text)}
+
+    /* Sections */
+    section{padding:26px 0 0}
+    .section-title{display:flex; align-items:flex-end; justify-content:space-between; gap:12px}
+    .section-title h2{margin:0; font-size:18px}
+    .section-title p{margin:0; color:var(--muted); font-size:13px}
+
+    .cards{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap:12px;
+      margin-top:12px;
+    }
+    .proj{grid-column: span 6; padding:18px}
+    @media (max-width: 920px){.proj{grid-column: span 12}}
+    .proj h3{margin:0 0 6px; font-size:15px}
+    .proj p{margin:0 0 12px; color:var(--muted); font-size:13px}
+    .tags{display:flex; gap:8px; flex-wrap:wrap}
+    .tag{
+      font-size:11px; padding:6px 9px; border-radius:999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.02);
+      color: var(--muted);
+    }
+    .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
+
+    /* Timeline */
+    .timeline{margin-top:12px}
+    .row{display:grid; grid-template-columns: 160px 1fr; gap:12px; padding:14px 16px}
+    @media (max-width: 620px){.row{grid-template-columns:1fr}}
+    .row + .row{border-top: 1px solid var(--border)}
+    .when{font-size:12px; color:var(--muted)}
+    .what strong{display:block; font-size:13px; margin-bottom:3px}
+    .what span{color:var(--muted); font-size:13px}
+
+    /* Footer */
+    footer{margin-top:40px; padding-top:18px; border-top:1px solid var(--border); color:var(--muted); font-size:12px}
+
+    /* Print */
+    @media print{
+      header{position:static; backdrop-filter:none; background:#fff; color:#000}
+      body{background:#fff; color:#000}
+      .card{box-shadow:none}
+      .btn, nav{display:none !important}
+      a{color:#000}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <strong>Lunga Mzimkulu</strong>
+          <span>ITIL 4 Certified | Service Delivery & SLA Coordination</span>
+          <span>Service Delivery / Service Coordinator Portfolio</span>
+        </div>
+      </div>
+      <nav aria-label="Primary">
+        <a href="#projects">Projects</a>
+        <a href="#reports">Reporting</a>
+        <a href="#process">Process</a>
+        <a href="#certs">Certifications</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="hero">
+      <div class="grid">
+        <div class="card hero-card">
+          <div class="kicker"><span class="dot" aria-hidden="true"></span> ITIL 4 Foundation • Project Management • Service Operations</div>
+          <div style="margin-top:10px; display:inline-flex; align-items:center; gap:8px; font-size:12px; color:#6ee7ff; padding:6px 10px; border-radius:999px; border:1px solid rgba(110,231,255,.35); background:rgba(110,231,255,.08);">
+            ● Available for Service Coordinator opportunities
+          </div>
+          <h1>Running reliable IT services — with SLA focus, clear comms, and clean reporting.</h1>
+          <p class="lead">
+            I build practical service coordination solutions: ticket tracking, automation, escalation workflows, and dashboards.
+            This portfolio highlights service-delivery work aligned to ITIL practices (Incident, Request, SLA Management) using real tools.
+          </p>
+
+          <div class="cta-row">
+            <a class="btn" href="#projects">View Projects</a>
+            <a class="btn primary" href="#" id="lnkDownloadCV" target="_blank" rel="noreferrer">Download CV</a>
+            <button class="btn" onclick="window.print()" type="button">Print / Save as PDF</button>
+            <a class="btn" href="#contact">Contact</a>
+          </div>
+
+          <div class="pill-row" aria-label="Core strengths">
+            <span class="pill">Incident coordination</span>
+            <span class="pill">SLA tracking & compliance</span>
+            <span class="pill">Priority escalation (P1)</span>
+            <span class="pill">Stakeholder updates</span>
+            <span class="pill">Service reporting</span>
+          </div>
+        </div>
+
+        <aside class="card side">
+
+          <h3 style="margin-top:16px;">Service metrics snapshot</h3>
+          <div class="mini">
+            <!-- SLA Gauge -->
+            <div class="box" style="text-align:center;">
+              <div class="label" style="margin-bottom:8px;">SLA Compliance</div>
+              <div style="position:relative; width:130px; height:65px; margin:0 auto; overflow:hidden;">
+                <div style="width:130px; height:130px; border-radius:50%; background:conic-gradient(#6ee7ff 0% 96%, rgba(255,255,255,.10) 96% 100%); position:absolute; bottom:-65px;"></div>
+                <div style="position:absolute; bottom:-54px; left:50%; transform:translateX(-50%); width:96px; height:96px; border-radius:50%; background:rgba(15,26,51,.78);"></div>
+              </div>
+              <div style="font-size:18px; font-weight:700; margin-top:6px;">96%</div>
+              <div class="label" style="margin-top:2px;">Target: ≥ 95%</div>
+            </div>
+
+            <!-- Avg Resolution Time -->
+            <div class="box">
+              <div class="label">Avg Resolution Time</div>
+              <div class="value" style="font-size:18px; font-weight:700; margin-top:6px;">2.1 hrs</div>
+              <div style="height:8px; border-radius:999px; background:rgba(255,255,255,.10); overflow:hidden; margin-top:10px;">
+                <div style="width:70%; height:100%; background:linear-gradient(90deg, #6ee7ff, #a78bfa);"></div>
+              </div>
+              <div class="label" style="margin-top:8px;">Target: 3 hrs</div>
+            </div>
+
+            <!-- P1 Response -->
+            <div class="box">
+              <div class="label">P1 Response Time</div>
+              <div class="value" style="font-size:18px; font-weight:700; margin-top:6px;">&lt; 15 mins</div>
+              <div style="display:flex; gap:4px; margin-top:10px;">
+                <div style="flex:1; height:8px; border-radius:999px; background:#6ee7ff;"></div>
+                <div style="flex:1; height:8px; border-radius:999px; background:#6ee7ff;"></div>
+                <div style="flex:1; height:8px; border-radius:999px; background:#6ee7ff;"></div>
+                <div style="flex:1; height:8px; border-radius:999px; background:rgba(255,255,255,.10);"></div>
+              </div>
+              <div class="label" style="margin-top:8px;">Target: &lt; 30 mins</div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <section id="projects">
+      <div class="section-title">
+        <div>
+          <h2>Portfolio Projects</h2>
+        </div>
+      </div>
+      </div>
+
+      <div class="cards">
+        <article class="card proj">
+          <h3>1) Lightweight Service Desk Ticketing System (Google Sheets + Apps Script)</h3>
+          <p>
+            Built a practical ticketing workflow for incident & request logging, including auto Ticket ID generation,
+            automated Date Created, Priority handling, Date Resolved, and SLA calculations.
+          </p>
+          <div class="tags">
+            <span class="tag">Incident Management</span>
+            <span class="tag">Service Requests</span>
+            <span class="tag">Automation</span>
+            <span class="tag">SLA Tracking</span>
+          </div>
+          <div class="actions">
+            <a class="btn" href="#" id="lnkTicketDemo" target="_blank" rel="noreferrer">Demo / Screenshots</a>
+            <a class="btn" href="#" id="lnkScript" target="_blank" rel="noreferrer">Script Snippet</a>
+          </div>
+        </article>
+
+        <article class="card proj">
+          <h3>2) SLA & KPI Dashboard (Looker Studio)</h3>
+          <p>
+            Designed a dashboard to track SLA compliance, average resolution time, breaches, and monthly performance.
+            Focused on clear visuals for managers and daily operational use.
+          </p>
+          <div class="tags">
+            <span class="tag">Service Reporting</span>
+            <span class="tag">SLA Compliance</span>
+            <span class="tag">Looker Studio</span>
+            <span class="tag">KPI Monitoring</span>
+          </div>
+          <div class="actions">
+            <a class="btn" href="#" id="lnkDashboard" target="_blank" rel="noreferrer">Dashboard Link</a>
+            <a class="btn" href="#reports">What I Report</a>
+          </div>
+        </article>
+
+        <article class="card proj">
+          <h3>3) Priority Escalation & Notification Workflow</h3>
+          <p>
+            Implemented rules such as auto-assigning Priority P1 for network outages and sending immediate notifications.
+            This supports faster response and stronger SLA performance.
+          </p>
+          <div class="tags">
+            <span class="tag">Escalations</span>
+            <span class="tag">Major Incident Support</span>
+            <span class="tag">Communication</span>
+          </div>
+          <div class="actions">
+            <a class="btn" href="#" id="lnkEscalation" target="_blank" rel="noreferrer">Workflow Overview</a>
+          </div>
+        </article>
+
+        <article class="card proj">
+          <h3>4) Continual Improvement Example</h3>
+          <p>
+            Identified recurring incident themes and proposed improvements (better categorization, standard updates,
+            escalation rules, and dashboard-driven reviews) to reduce repeat incidents and resolution time.
+          </p>
+          <div class="tags">
+            <span class="tag">CSI</span>
+            <span class="tag">Problem Trend Review</span>
+            <span class="tag">Process Improvement</span>
+          </div>
+          <div class="actions">
+            <a class="btn" href="#process">Process Docs</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="reports">
+      <div class="section-title">
+        <div>
+          <h2>Service Reporting</h2>
+          <p>I believe clear communication builds trust, so I focus on reporting that helps teams and stakeholders understand service performance and make better decisions.</p>
+        </div>
+      </div>
+
+      <div class="card timeline">
+        <div class="row">
+          <div class="when">Weekly Ops Report</div>
+          <div class="what">
+            <strong>Ticket volume, SLA performance, and priority incidents</strong>
+            <span>Total logged vs resolved, open backlog, P1/P2 breakdown, top categories, and actions for the next week.</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="when">Daily Update</div>
+          <div class="what">
+            <strong>Operational snapshot</strong>
+            <span>Open tickets, aged tickets, blockers, and escalations. Short and clear for fast decisions.</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="when">Monthly Review</div>
+          <div class="what">
+            <strong>Trends + improvement plan</strong>
+            <span>Service trends, breach reasons, and improvement actions aligned with ITIL Continual Improvement.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="process">
+      <div class="section-title">
+        <div>
+          <h2>Process & Governance</h2>
+          <p>I enjoy bringing structure to service operations by creating clear processes that help teams work consistently and resolve issues efficiently.</p>
+        </div>
+      </div>
+
+      <div class="cards">
+        <article class="card proj">
+          <h3>Incident Management Flow</h3>
+          <p>Clear steps from logging → classification → prioritization → escalation → resolution → closure & review.</p>
+          <div class="actions">
+            <a class="btn" href="#" id="lnkIncidentFlow" target="_blank" rel="noreferrer">View Document</a>
+          </div>
+        </article>
+        <article class="card proj">
+          <h3>Escalation Matrix</h3>
+          <p>Who to notify, when to escalate, and how fast to respond for P1/P2/P3 issues.</p>
+          <div class="actions">
+            <a class="btn" href="#" id="lnkEscMatrix" target="_blank" rel="noreferrer">View Matrix</a>
+          </div>
+        </article>
+        <article class="card proj">
+          <h3>SLA Definitions</h3>
+          <p>Service hours, targets, measurement method, and breach handling (including communication rules).</p>
+          <div class="actions">
+            <a class="btn" href="#" id="lnkSLA" target="_blank" rel="noreferrer">View SLA Doc</a>
+          </div>
+        </article>
+        <article class="card proj">
+          <h3>RACI / Ownership</h3>
+          <p>Defines who is Responsible, Accountable, Consulted, and Informed during incidents and requests.</p>
+          <div class="actions">
+            <a class="btn" href="#" id="lnkRACI" target="_blank" rel="noreferrer">View RACI</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="certs">
+      <div class="section-title">
+        <div>
+          <h2>Certifications & Training</h2>
+          <p>Continuous learning that supports my growth in service delivery, coordination, and improving IT service experiences.</p>
+        </div>
+      </div>
+      </div>
+      </div>
+
+      <div class="card timeline">
+        <div class="row">
+          <div class="when">ITIL® 4 Foundation</div>
+          <div class="what">
+            <strong>Service Management Framework</strong>
+            <span>Incident/Request/SLA basics, continual improvement, and service value system concepts.</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="when">Project Management (Alison)</div>
+          <div class="what">
+            <strong>Planning & coordination</strong>
+            <span>Scheduling, stakeholder coordination, risk awareness, and structured delivery.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="section-title">
+        <div>
+          <h2>Contact</h2>
+          <p>I’m always open to discussing service delivery opportunities, collaboration, or improving service operations.</p>
+        </div>
+      </div>
+      </div>
+      </div>
+
+      <div class="card" style="padding:18px">
+        <p style="margin:0 0 10px; color:var(--muted); font-size:13px">
+          Edit the placeholders below to your real details.
+        </p>
+        <div class="cards" style="margin-top:0">
+          <div class="card" style="grid-column: span 4; padding:16px">
+            <div class="label">Email</div>
+            <div class="value"><a href="#" id="emailLink">mzimkulunga5@gmail.com</a></div>
+          </div>
+          <div class="card" style="grid-column: span 4; padding:16px">
+            <div class="label">Mobile</div>
+            <div class="value"><a href="tel:+27837525697">083 752 5697</a></div>
+          </div>
+          <div class="card" style="grid-column: span 4; padding:16px">
+            <div class="label">Location</div>
+            <div class="value">Cape Town<br>Western Cape<br>South Africa</div>
+          </div>
+          </div>
+          <div class="card" style="grid-column: span 12; padding:16px">
+            <div class="label">Short pitch</div>
+            <div class="value">
+              Service Coordinator focused on SLA performance, incident coordination, and clear stakeholder updates.
+              Experienced with Google Sheets + Apps Script automation and Looker Studio reporting.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div>© <span id="year"></span> Lunga Mzimkulu • Service Delivery / Service Coordinator Portfolio</div>
+        <div style="margin-top:6px;">Last updated: February 2026</div>
+      </footer>
+    </section>
+  </main>
+
+  <script>
+    // ====== EDIT THESE LINKS ======
+    const PROFILE = {
+      linkedin: "https://www.linkedin.com/in/YOUR-LINKEDIN/",
+      cv: "https://drive.google.com/FILE_OR_SHARE_LINK",
+      email: "mzimkulunga5@gmail.com",
+
+      // Project links
+      ticketDemo: "https://drive.google.com/PROJECT_SCREENSHOTS_LINK",
+      script: "https://github.com/YOUR-REPO_OR_GIST",
+      dashboard: "https://lookerstudio.google.com/REPORT_LINK",
+      escalation: "https://drive.google.com/ESCALATION_WORKFLOW_LINK",
+
+      // Docs
+      incidentFlow: "https://drive.google.com/INCIDENT_FLOW_DOC",
+      escalationMatrix: "https://drive.google.com/ESCALATION_MATRIX",
+      slaDoc: "https://drive.google.com/SLA_DOC",
+      raci: "https://drive.google.com/RACI_DOC",
+    };
+
+    // Wire links
+    const set = (id, href) => {
+      const el = document.getElementById(id);
+      if(!el) return;
+      el.href = href;
+    };
+
+    set("lnkLinkedIn", PROFILE.linkedin);
+    set("lnkCV", PROFILE.cv);
+    set("lnkDownloadCV", PROFILE.cv);
+
+    // mailto
+    const mailto = `mailto:${PROFILE.email}?subject=${encodeURIComponent('Service Coordinator — Portfolio')}`;
+    set("lnkEmail", mailto);
+    set("emailLink", mailto);
+    document.getElementById("emailLink").textContent = PROFILE.email;
+
+    set("lnkTicketDemo", PROFILE.ticketDemo);
+    set("lnkScript", PROFILE.script);
+    set("lnkDashboard", PROFILE.dashboard);
+    set("lnkEscalation", PROFILE.escalation);
+
+    set("lnkIncidentFlow", PROFILE.incidentFlow);
+    set("lnkEscMatrix", PROFILE.escalationMatrix);
+    set("lnkSLA", PROFILE.slaDoc);
+    set("lnkRACI", PROFILE.raci);
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
