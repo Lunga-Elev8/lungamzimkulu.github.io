@@ -227,10 +227,8 @@
         </div>
 
         <aside class="card side">
-
           <h3 style="margin-top:16px;">Service metrics snapshot</h3>
           <div class="mini">
-            <!-- SLA Gauge -->
             <div class="box" style="text-align:center;">
               <div class="label" style="margin-bottom:8px;">SLA Compliance</div>
               <div style="position:relative; width:130px; height:65px; margin:0 auto; overflow:hidden;">
@@ -241,7 +239,6 @@
               <div class="label" style="margin-top:2px;">Target: ≥ 95%</div>
             </div>
 
-            <!-- Avg Resolution Time -->
             <div class="box">
               <div class="label">Avg Resolution Time</div>
               <div class="value" style="font-size:18px; font-weight:700; margin-top:6px;">2.1 hrs</div>
@@ -251,7 +248,6 @@
               <div class="label" style="margin-top:8px;">Target: 3 hrs</div>
             </div>
 
-            <!-- P1 Response -->
             <div class="box">
               <div class="label">P1 Response Time</div>
               <div class="value" style="font-size:18px; font-weight:700; margin-top:6px;">&lt; 15 mins</div>
@@ -273,7 +269,6 @@
         <div>
           <h2>Portfolio Projects</h2>
         </div>
-      </div>
       </div>
 
       <div class="cards">
@@ -393,9 +388,11 @@
           <h3>Incident Management Flow</h3>
           <p>Clear steps from logging → classification → prioritization → escalation → resolution → closure & review.</p>
           <div class="actions">
-            <a class="btn" href="#" id="lnkIncidentFlow" target="_blank" rel="noreferrer">View Document</a>
+            <!-- UPDATED: jump to embedded PDF viewer below -->
+            <a class="btn" href="#incident-flow-pdf">View Document</a>
           </div>
         </article>
+
         <article class="card proj">
           <h3>Escalation Matrix</h3>
           <p>Who to notify, when to escalate, and how fast to respond for P1/P2/P3 issues.</p>
@@ -403,6 +400,7 @@
             <a class="btn" href="#" id="lnkEscMatrix" target="_blank" rel="noreferrer">View Matrix</a>
           </div>
         </article>
+
         <article class="card proj">
           <h3>SLA Definitions</h3>
           <p>Service hours, targets, measurement method, and breach handling (including communication rules).</p>
@@ -410,6 +408,7 @@
             <a class="btn" href="#" id="lnkSLA" target="_blank" rel="noreferrer">View SLA Doc</a>
           </div>
         </article>
+
         <article class="card proj">
           <h3>RACI / Ownership</h3>
           <p>Defines who is Responsible, Accountable, Consulted, and Informed during incidents and requests.</p>
@@ -418,6 +417,45 @@
           </div>
         </article>
       </div>
+
+      <!-- ✅ NEW: Embedded PDF viewer added to THIS section -->
+      <section id="incident-flow-pdf">
+        <div class="section-title" style="margin-top:16px;">
+          <div>
+            <h2>Incident Management Flow (PDF)</h2>
+            <p>Embedded view. If it doesn’t load, open/download it.</p>
+          </div>
+        </div>
+
+        <div class="card" style="padding:14px; margin-top:12px;">
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:10px;">
+            <a class="btn primary" href="incident-management-flow.pdf" target="_blank" rel="noreferrer">
+              Open PDF in new tab
+            </a>
+            <a class="btn" href="incident-management-flow.pdf" download>
+              Download PDF
+            </a>
+          </div>
+
+          <div style="border:1px solid rgba(255,255,255,.10); border-radius:16px; overflow:hidden; background:rgba(255,255,255,.02);">
+            <object
+              data="incident-management-flow.pdf"
+              type="application/pdf"
+              width="100%"
+              height="680"
+              aria-label="Incident Management Flow PDF"
+            >
+              <iframe
+                src="incident-management-flow.pdf"
+                width="100%"
+                height="680"
+                style="border:0;"
+                title="Incident Management Flow PDF"
+              ></iframe>
+            </object>
+          </div>
+        </div>
+      </section>
     </section>
 
     <section id="certs">
@@ -426,8 +464,6 @@
           <h2>Certifications & Training</h2>
           <p>Continuous learning that supports my growth in service delivery, coordination, and improving IT service experiences.</p>
         </div>
-      </div>
-      </div>
       </div>
 
       <div class="card timeline">
@@ -455,8 +491,6 @@
           <p>I’m always open to discussing service delivery opportunities, collaboration, or improving service operations.</p>
         </div>
       </div>
-      </div>
-      </div>
 
       <div class="card" style="padding:18px">
         <p style="margin:0 0 10px; color:var(--muted); font-size:13px">
@@ -475,7 +509,7 @@
             <div class="label">Location</div>
             <div class="value">Cape Town<br>Western Cape<br>South Africa</div>
           </div>
-          </div>
+
           <div class="card" style="grid-column: span 12; padding:16px">
             <div class="label">Short pitch</div>
             <div class="value">
@@ -506,8 +540,7 @@
       dashboard: "https://lookerstudio.google.com/REPORT_LINK",
       escalation: "https://drive.google.com/ESCALATION_WORKFLOW_LINK",
 
-      // Docs
-      incidentFlow: "https://drive.google.com/INCIDENT_FLOW_DOC",
+      // Docs (still placeholders for other buttons)
       escalationMatrix: "https://drive.google.com/ESCALATION_MATRIX",
       slaDoc: "https://drive.google.com/SLA_DOC",
       raci: "https://drive.google.com/RACI_DOC",
@@ -520,13 +553,10 @@
       el.href = href;
     };
 
-    set("lnkLinkedIn", PROFILE.linkedin);
-    set("lnkCV", PROFILE.cv);
     set("lnkDownloadCV", PROFILE.cv);
 
     // mailto
     const mailto = `mailto:${PROFILE.email}?subject=${encodeURIComponent('Service Coordinator — Portfolio')}`;
-    set("lnkEmail", mailto);
     set("emailLink", mailto);
     document.getElementById("emailLink").textContent = PROFILE.email;
 
@@ -535,7 +565,6 @@
     set("lnkDashboard", PROFILE.dashboard);
     set("lnkEscalation", PROFILE.escalation);
 
-    set("lnkIncidentFlow", PROFILE.incidentFlow);
     set("lnkEscMatrix", PROFILE.escalationMatrix);
     set("lnkSLA", PROFILE.slaDoc);
     set("lnkRACI", PROFILE.raci);
