@@ -1,21 +1,20 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-
-<title>Lunga Mzimkulu | Service Delivery & SLA Management</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Lunga Mzimkulu | Executive Service Delivery Portfolio</title>
 
 <style>
 :root{
-  --bg:#f5f7fa;
+  --bg:#f4f6f9;
   --primary:#0f172a;
-  --accent:#1d4ed8;
+  --accent:#1e40af;
   --muted:#64748b;
   --card:#ffffff;
   --border:#e2e8f0;
   --radius:14px;
-  --shadow:0 8px 30px rgba(15,23,42,.08);
+  --shadow:0 10px 35px rgba(0,0,0,.06);
   --max:1150px;
 }
 
@@ -26,157 +25,143 @@ body{
   background:var(--bg);
   color:var(--primary);
   line-height:1.6;
+  scroll-behavior:smooth;
 }
 
-.container{
-  max-width:var(--max);
-  margin:auto;
-  padding:40px 20px;
-}
+.container{max-width:var(--max);margin:auto;padding:40px 20px}
 
-/* HEADER */
 header{
   background:white;
   border-bottom:1px solid var(--border);
+  position:sticky;
+  top:0;
+  z-index:1000;
 }
+
 .nav{
   max-width:var(--max);
   margin:auto;
-  padding:20px;
+  padding:18px 20px;
   display:flex;
   justify-content:space-between;
   align-items:center;
 }
-.nav strong{
-  font-size:18px;
-}
-.nav span{
-  font-size:13px;
-  color:var(--muted);
-}
+
 .nav a{
   text-decoration:none;
+  margin-left:25px;
   color:var(--muted);
-  margin-left:20px;
   font-size:14px;
 }
 .nav a:hover{color:var(--accent)}
 
-/* HERO */
+h1{font-size:42px;margin:0 0 20px}
+h2{margin:0}
+p.lead{color:var(--muted);max-width:600px}
+
 .hero{
   display:grid;
   grid-template-columns:2fr 1fr;
-  gap:40px;
-  padding:60px 0;
+  gap:50px;
+  padding:70px 0;
 }
 @media(max-width:900px){
   .hero{grid-template-columns:1fr}
 }
 
-h1{
-  font-size:42px;
-  line-height:1.2;
-  margin:0 0 20px;
-}
-
-.lead{
-  color:var(--muted);
-  max-width:600px;
-}
-
-.buttons{
-  margin-top:25px;
-}
 .btn{
   padding:12px 18px;
   border-radius:8px;
   text-decoration:none;
   font-size:14px;
-  display:inline-block;
-  margin-right:12px;
-  border:1px solid var(--border);
+  margin-right:10px;
+  cursor:pointer;
 }
 .btn-primary{
   background:var(--accent);
   color:white;
-  border:none;
 }
 .btn-outline{
+  border:1px solid var(--border);
   background:white;
   color:var(--primary);
 }
 
-/* KPI PANEL */
-.kpis{
-  display:grid;
-  gap:20px;
-}
-.kpi{
-  background:var(--card);
-  border:1px solid var(--border);
+.kpi-box{
+  background:white;
+  padding:25px;
   border-radius:var(--radius);
-  padding:20px;
+  border:1px solid var(--border);
   box-shadow:var(--shadow);
+  text-align:center;
 }
-.kpi h3{
-  margin:0 0 10px;
-  font-size:14px;
-  color:var(--muted);
-  font-weight:500;
-}
-.kpi .value{
-  font-size:26px;
+
+.counter{
+  font-size:32px;
   font-weight:600;
 }
 
-/* SECTIONS */
-section{
-  margin-top:70px;
-}
-.section-title{
-  margin-bottom:25px;
-}
-.section-title h2{
-  margin:0;
-  font-size:24px;
-}
-.section-title p{
-  margin-top:6px;
-  color:var(--muted);
-  font-size:14px;
-}
+section{margin-top:80px}
 
-/* CARDS */
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
   gap:25px;
 }
+
 .card{
   background:white;
   border:1px solid var(--border);
-  border-radius:var(--radius);
   padding:25px;
+  border-radius:var(--radius);
   box-shadow:var(--shadow);
+  transition:.3s ease;
 }
-.card h3{
-  margin-top:0;
+.card:hover{
+  transform:translateY(-6px);
 }
-.card p{
-  color:var(--muted);
-  font-size:14px;
+
+.hidden{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height .4s ease;
 }
-.card .btn{
+
+.show{
+  max-height:500px;
   margin-top:15px;
 }
 
-/* FOOTER */
 footer{
   margin-top:80px;
   padding:40px 0;
   border-top:1px solid var(--border);
-  font-size:13px;
   color:var(--muted);
+  font-size:13px;
+}
+
+/* Modal */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.5);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  visibility:hidden;
+  opacity:0;
+  transition:.3s;
+}
+.modal.active{
+  visibility:visible;
+  opacity:1;
+}
+.modal-content{
+  background:white;
+  padding:40px;
+  border-radius:var(--radius);
+  max-width:500px;
+  text-align:center;
 }
 </style>
 </head>
@@ -184,13 +169,9 @@ footer{
 
 <header>
   <div class="nav">
-    <div>
-      <strong>Lunga Mzimkulu</strong><br>
-      <span>Service Delivery | SLA Management | ITIL 4</span>
-    </div>
+    <strong>Lunga Mzimkulu</strong>
     <div>
       <a href="#projects">Projects</a>
-      <a href="#reporting">Reporting</a>
       <a href="#process">Process</a>
       <a href="#contact">Contact</a>
     </div>
@@ -199,130 +180,144 @@ footer{
 
 <div class="container">
 
-  <!-- HERO -->
-  <div class="hero">
-    <div>
-      <h1>Driving Reliable IT Services Through Structured SLA Management & Operational Excellence.</h1>
-      <p class="lead">
-        Service Delivery professional focused on incident coordination, SLA compliance, reporting automation,
-        and continual improvement aligned to ITIL best practices.
-      </p>
-
-      <div class="buttons">
-        <a href="#" class="btn btn-primary">View SLA Dashboard</a>
-        <a href="#" class="btn btn-outline">Download CV</a>
-      </div>
-    </div>
-
-    <div class="kpis">
-      <div class="kpi">
-        <h3>SLA Compliance</h3>
-        <div class="value">96%</div>
-      </div>
-      <div class="kpi">
-        <h3>Average Resolution</h3>
-        <div class="value">2.1 hrs</div>
-      </div>
-      <div class="kpi">
-        <h3>P1 Response Time</h3>
-        <div class="value">&lt; 15 mins</div>
-      </div>
-    </div>
+<div class="hero">
+  <div>
+    <h1>Executive-Level Service Delivery & SLA Governance</h1>
+    <p class="lead">
+      Delivering measurable SLA compliance, operational transparency,
+      and structured ITIL-aligned service performance.
+    </p>
+    <br>
+    <a class="btn btn-primary" onclick="openModal()">Download Resume</a>
+    <a class="btn btn-outline" href="#projects">View Case Studies</a>
   </div>
 
-  <!-- PROJECTS -->
-  <section id="projects">
-    <div class="section-title">
-      <h2>Key Projects</h2>
-      <p>Operational service improvements and reporting initiatives.</p>
+  <div>
+    <div class="kpi-box">
+      <div class="counter" data-target="96">0</div>
+      <div>SLA Compliance (%)</div>
+      <br>
+      <svg width="160" height="100">
+        <path d="M10 90 A70 70 0 0 1 150 90"
+              stroke="#e2e8f0" stroke-width="15" fill="none"/>
+        <path id="gaugeFill"
+              d="M10 90 A70 70 0 0 1 150 90"
+              stroke="#1e40af" stroke-width="15"
+              fill="none"
+              stroke-dasharray="220"
+              stroke-dashoffset="220"/>
+      </svg>
     </div>
+  </div>
+</div>
 
-    <div class="grid">
-      <div class="card">
-        <h3>Service Desk Automation</h3>
-        <p>Built a ticketing workflow using Google Sheets & Apps Script with SLA calculation and escalation triggers.</p>
-        <a href="#" class="btn btn-outline">View Project</a>
-      </div>
+<section id="projects">
+<h2>Executive Case Studies</h2>
+<br>
+<div class="grid">
 
-      <div class="card">
-        <h3>SLA & KPI Dashboard</h3>
-        <p>Designed executive dashboard in Looker Studio to monitor resolution time, breaches, and compliance trends.</p>
-        <a href="#" class="btn btn-outline">View Dashboard</a>
-      </div>
+<div class="card">
+<h3>SLA Automation Framework</h3>
+<p>Automated SLA tracking with breach alerts and escalation matrix.</p>
+<button class="btn btn-outline" onclick="toggle(this)">View Details</button>
+<div class="hidden">
+<p>
+Reduced SLA breaches by 22% through automated categorisation and priority enforcement logic.
+</p>
+</div>
+</div>
 
-      <div class="card">
-        <h3>Escalation Framework</h3>
-        <p>Defined structured escalation matrix supporting P1/P2 prioritisation and response timelines.</p>
-        <a href="#" class="btn btn-outline">View Workflow</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- REPORTING -->
-  <section id="reporting">
-    <div class="section-title">
-      <h2>Service Reporting Approach</h2>
-      <p>Data-driven communication supporting leadership decision-making.</p>
-    </div>
-
-    <div class="grid">
-      <div class="card">
-        <h3>Weekly Operations Report</h3>
-        <p>Ticket volume, SLA performance, priority incidents, and backlog analysis.</p>
-      </div>
-      <div class="card">
-        <h3>Daily Operational Summary</h3>
-        <p>Open incidents, aged tickets, blockers, and escalations requiring attention.</p>
-      </div>
-      <div class="card">
-        <h3>Monthly Trend Review</h3>
-        <p>Trend analysis with continual improvement recommendations aligned to ITIL.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- PROCESS -->
-  <section id="process">
-    <div class="section-title">
-      <h2>Governance & Process</h2>
-      <p>Structured IT service management aligned to ITIL principles.</p>
-    </div>
-
-    <div class="grid">
-      <div class="card">
-        <h3>Incident Management</h3>
-        <p>Logging → Categorisation → Prioritisation → Escalation → Resolution → Review.</p>
-      </div>
-      <div class="card">
-        <h3>SLA Definition Framework</h3>
-        <p>Defined measurement methods, breach handling, and communication standards.</p>
-      </div>
-      <div class="card">
-        <h3>RACI & Ownership Model</h3>
-        <p>Clear responsibility mapping for operational accountability.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact">
-    <div class="section-title">
-      <h2>Contact</h2>
-      <p>Available for Service Coordinator & Service Delivery opportunities.</p>
-    </div>
-
-    <div class="card">
-      <p>Email: mzimkulunga5@gmail.com</p>
-      <p>Mobile: 083 752 5697</p>
-      <p>Location: Cape Town, South Africa</p>
-    </div>
-  </section>
-
-  <footer>
-    © 2026 Lunga Mzimkulu — Service Delivery Portfolio
-  </footer>
+<div class="card">
+<h3>Service Performance Dashboard</h3>
+<p>Executive KPI dashboard for leadership reporting.</p>
+<button class="btn btn-outline" onclick="toggle(this)">View Details</button>
+<div class="hidden">
+<p>
+Built interactive reporting model tracking P1/P2 response times, backlog trends and resolution efficiency.
+</p>
+</div>
+</div>
 
 </div>
+</section>
+
+<section id="process">
+<h2>Governance & Operational Excellence</h2>
+<br>
+<div class="grid">
+<div class="card">
+<h3>Incident Governance</h3>
+<p>Structured escalation aligned to ITIL 4 principles.</p>
+</div>
+<div class="card">
+<h3>Continuous Improvement</h3>
+<p>Trend analysis and SLA optimization initiatives.</p>
+</div>
+</div>
+</section>
+
+<section id="contact">
+<h2>Contact</h2>
+<br>
+<div class="card">
+<p>Email: mzimkulunga5@gmail.com</p>
+<p>Mobile: 083 752 5697</p>
+<p>Location: Cape Town</p>
+</div>
+</section>
+
+<footer>
+© 2026 Lunga Mzimkulu — Executive Portfolio
+</footer>
+
+</div>
+
+<div class="modal" id="resumeModal">
+  <div class="modal-content">
+    <h3>Download Resume</h3>
+    <p>Click below to download executive CV.</p>
+    <a href="#" class="btn btn-primary">Download PDF</a>
+    <br><br>
+    <button class="btn btn-outline" onclick="closeModal()">Close</button>
+  </div>
+</div>
+
+<script>
+// Counter Animation
+document.querySelectorAll('.counter').forEach(counter=>{
+  const update=()=>{
+    const target=+counter.getAttribute('data-target');
+    const count=+counter.innerText;
+    const increment=target/100;
+    if(count<target){
+      counter.innerText=Math.ceil(count+increment);
+      setTimeout(update,20);
+    } else {
+      counter.innerText=target;
+    }
+  }
+  update();
+});
+
+// Gauge animation
+setTimeout(()=>{
+  document.getElementById("gaugeFill").style.strokeDashoffset = 220 - (220 * 0.96);
+},500);
+
+// Expand toggle
+function toggle(btn){
+  const content=btn.nextElementSibling;
+  content.classList.toggle("show");
+}
+
+// Modal
+function openModal(){
+  document.getElementById("resumeModal").classList.add("active");
+}
+function closeModal(){
+  document.getElementById("resumeModal").classList.remove("active");
+}
+</script>
 
 </body>
 </html>
