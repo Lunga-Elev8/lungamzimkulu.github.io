@@ -3,319 +3,181 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Lunga Mzimkulu | Executive Service Delivery Portfolio</title>
+<title>Service Delivery Executive Dashboard</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <style>
 :root{
   --bg:#f4f6f9;
-  --primary:#0f172a;
-  --accent:#1e40af;
-  --muted:#64748b;
   --card:#ffffff;
+  --text:#0f172a;
+  --muted:#64748b;
+  --accent:#1e40af;
   --border:#e2e8f0;
-  --radius:14px;
-  --shadow:0 10px 35px rgba(0,0,0,.06);
-  --max:1150px;
+}
+.dark{
+  --bg:#0f172a;
+  --card:#1e293b;
+  --text:#f1f5f9;
+  --muted:#94a3b8;
+  --accent:#3b82f6;
+  --border:#334155;
 }
 
-*{box-sizing:border-box}
 body{
   margin:0;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
   background:var(--bg);
-  color:var(--primary);
-  line-height:1.6;
-  scroll-behavior:smooth;
+  color:var(--text);
+  transition:.3s;
 }
 
-.container{max-width:var(--max);margin:auto;padding:40px 20px}
+.container{
+  max-width:1200px;
+  margin:auto;
+  padding:40px 20px;
+}
 
 header{
-  background:white;
-  border-bottom:1px solid var(--border);
-  position:sticky;
-  top:0;
-  z-index:1000;
-}
-
-.nav{
-  max-width:var(--max);
-  margin:auto;
-  padding:18px 20px;
   display:flex;
   justify-content:space-between;
   align-items:center;
+  padding:20px 0;
 }
 
-.nav a{
-  text-decoration:none;
-  margin-left:25px;
-  color:var(--muted);
-  font-size:14px;
-}
-.nav a:hover{color:var(--accent)}
-
-h1{font-size:42px;margin:0 0 20px}
-h2{margin:0}
-p.lead{color:var(--muted);max-width:600px}
-
-.hero{
-  display:grid;
-  grid-template-columns:2fr 1fr;
-  gap:50px;
-  padding:70px 0;
-}
-@media(max-width:900px){
-  .hero{grid-template-columns:1fr}
-}
-
-.btn{
-  padding:12px 18px;
+button{
+  padding:8px 14px;
   border-radius:8px;
-  text-decoration:none;
-  font-size:14px;
-  margin-right:10px;
+  border:1px solid var(--border);
+  background:var(--card);
   cursor:pointer;
-}
-.btn-primary{
-  background:var(--accent);
-  color:white;
-}
-.btn-outline{
-  border:1px solid var(--border);
-  background:white;
-  color:var(--primary);
+  color:var(--text);
 }
 
-.kpi-box{
-  background:white;
-  padding:25px;
-  border-radius:var(--radius);
-  border:1px solid var(--border);
-  box-shadow:var(--shadow);
-  text-align:center;
-}
-
-.counter{
-  font-size:32px;
-  font-weight:600;
-}
-
-section{margin-top:80px}
-
-.grid{
+.kpis{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-  gap:25px;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+  margin:40px 0;
 }
 
 .card{
-  background:white;
-  border:1px solid var(--border);
+  background:var(--card);
   padding:25px;
-  border-radius:var(--radius);
-  box-shadow:var(--shadow);
-  transition:.3s ease;
-}
-.card:hover{
-  transform:translateY(-6px);
+  border-radius:12px;
+  border:1px solid var(--border);
 }
 
-.hidden{
-  max-height:0;
-  overflow:hidden;
-  transition:max-height .4s ease;
+.chart-box{
+  margin-top:40px;
 }
 
-.show{
-  max-height:500px;
-  margin-top:15px;
+.admin{
+  margin-top:60px;
+  padding:20px;
+  border:1px dashed var(--border);
 }
 
-footer{
-  margin-top:80px;
-  padding:40px 0;
-  border-top:1px solid var(--border);
-  color:var(--muted);
-  font-size:13px;
+input{
+  padding:6px;
+  margin:5px;
 }
 
-/* Modal */
-.modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.5);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  visibility:hidden;
-  opacity:0;
-  transition:.3s;
-}
-.modal.active{
-  visibility:visible;
-  opacity:1;
-}
-.modal-content{
-  background:white;
-  padding:40px;
-  border-radius:var(--radius);
-  max-width:500px;
-  text-align:center;
-}
 </style>
 </head>
 <body>
 
+<div class="container">
+
 <header>
-  <div class="nav">
-    <strong>Lunga Mzimkulu</strong>
-    <div>
-      <a href="#projects">Projects</a>
-      <a href="#process">Process</a>
-      <a href="#contact">Contact</a>
-    </div>
+  <h2>Executive SLA Performance Dashboard</h2>
+  <div>
+    <button onclick="toggleTheme()">Toggle Theme</button>
+    <button onclick="generatePDF()">Download Report</button>
   </div>
 </header>
 
-<div class="container">
-
-<div class="hero">
-  <div>
-    <h1>Executive-Level Service Delivery & SLA Governance</h1>
-    <p class="lead">
-      Delivering measurable SLA compliance, operational transparency,
-      and structured ITIL-aligned service performance.
-    </p>
-    <br>
-    <a class="btn btn-primary" onclick="openModal()">Download Resume</a>
-    <a class="btn btn-outline" href="#projects">View Case Studies</a>
+<div class="kpis">
+  <div class="card">
+    <h3>Total Tickets</h3>
+    <h1 id="totalTickets">120</h1>
   </div>
-
-  <div>
-    <div class="kpi-box">
-      <div class="counter" data-target="96">0</div>
-      <div>SLA Compliance (%)</div>
-      <br>
-      <svg width="160" height="100">
-        <path d="M10 90 A70 70 0 0 1 150 90"
-              stroke="#e2e8f0" stroke-width="15" fill="none"/>
-        <path id="gaugeFill"
-              d="M10 90 A70 70 0 0 1 150 90"
-              stroke="#1e40af" stroke-width="15"
-              fill="none"
-              stroke-dasharray="220"
-              stroke-dashoffset="220"/>
-      </svg>
-    </div>
+  <div class="card">
+    <h3>SLA Compliance</h3>
+    <h1 id="slaValue">96%</h1>
+  </div>
+  <div class="card">
+    <h3>Avg Resolution (hrs)</h3>
+    <h1 id="avgRes">1.4</h1>
   </div>
 </div>
 
-<section id="projects">
-<h2>Executive Case Studies</h2>
-<br>
-<div class="grid">
-
-<div class="card">
-<h3>SLA Automation Framework</h3>
-<p>Automated SLA tracking with breach alerts and escalation matrix.</p>
-<button class="btn btn-outline" onclick="toggle(this)">View Details</button>
-<div class="hidden">
-<p>
-Reduced SLA breaches by 22% through automated categorisation and priority enforcement logic.
-</p>
-</div>
+<div class="chart-box card">
+  <h3>SLA Trend (Last 6 Months)</h3>
+  <canvas id="slaChart"></canvas>
 </div>
 
-<div class="card">
-<h3>Service Performance Dashboard</h3>
-<p>Executive KPI dashboard for leadership reporting.</p>
-<button class="btn btn-outline" onclick="toggle(this)">View Details</button>
-<div class="hidden">
-<p>
-Built interactive reporting model tracking P1/P2 response times, backlog trends and resolution efficiency.
-</p>
-</div>
+<div class="admin">
+  <h3>Admin Panel (Edit KPIs)</h3>
+  <input id="editTickets" placeholder="Total Tickets">
+  <input id="editSLA" placeholder="SLA %">
+  <input id="editAvg" placeholder="Avg Resolution">
+  <button onclick="updateKPIs()">Update</button>
 </div>
 
-</div>
-</section>
-
-<section id="process">
-<h2>Governance & Operational Excellence</h2>
-<br>
-<div class="grid">
-<div class="card">
-<h3>Incident Governance</h3>
-<p>Structured escalation aligned to ITIL 4 principles.</p>
-</div>
-<div class="card">
-<h3>Continuous Improvement</h3>
-<p>Trend analysis and SLA optimization initiatives.</p>
-</div>
-</div>
-</section>
-
-<section id="contact">
-<h2>Contact</h2>
-<br>
-<div class="card">
-<p>Email: mzimkulunga5@gmail.com</p>
-<p>Mobile: 083 752 5697</p>
-<p>Location: Cape Town</p>
-</div>
-</section>
-
-<footer>
-© 2026 Lunga Mzimkulu — Executive Portfolio
-</footer>
-
-</div>
-
-<div class="modal" id="resumeModal">
-  <div class="modal-content">
-    <h3>Download Resume</h3>
-    <p>Click below to download executive CV.</p>
-    <a href="#" class="btn btn-primary">Download PDF</a>
-    <br><br>
-    <button class="btn btn-outline" onclick="closeModal()">Close</button>
-  </div>
 </div>
 
 <script>
-// Counter Animation
-document.querySelectorAll('.counter').forEach(counter=>{
-  const update=()=>{
-    const target=+counter.getAttribute('data-target');
-    const count=+counter.innerText;
-    const increment=target/100;
-    if(count<target){
-      counter.innerText=Math.ceil(count+increment);
-      setTimeout(update,20);
-    } else {
-      counter.innerText=target;
-    }
+// THEME TOGGLE
+function toggleTheme(){
+  document.body.classList.toggle("dark");
+  localStorage.setItem("theme",document.body.classList.contains("dark"));
+}
+if(localStorage.getItem("theme")==="true"){
+  document.body.classList.add("dark");
+}
+
+// KPI UPDATE
+function updateKPIs(){
+  document.getElementById("totalTickets").innerText =
+    document.getElementById("editTickets").value;
+  document.getElementById("slaValue").innerText =
+    document.getElementById("editSLA").value + "%";
+  document.getElementById("avgRes").innerText =
+    document.getElementById("editAvg").value;
+}
+
+// CHART
+const ctx=document.getElementById("slaChart").getContext("2d");
+new Chart(ctx,{
+  type:'line',
+  data:{
+    labels:["Jan","Feb","Mar","Apr","May","Jun"],
+    datasets:[{
+      label:"SLA %",
+      data:[92,94,95,93,97,96],
+      borderWidth:3,
+      tension:.4
+    }]
+  },
+  options:{
+    responsive:true,
+    plugins:{legend:{display:false}},
+    scales:{y:{min:80,max:100}}
   }
-  update();
 });
 
-// Gauge animation
-setTimeout(()=>{
-  document.getElementById("gaugeFill").style.strokeDashoffset = 220 - (220 * 0.96);
-},500);
-
-// Expand toggle
-function toggle(btn){
-  const content=btn.nextElementSibling;
-  content.classList.toggle("show");
-}
-
-// Modal
-function openModal(){
-  document.getElementById("resumeModal").classList.add("active");
-}
-function closeModal(){
-  document.getElementById("resumeModal").classList.remove("active");
+// PDF EXPORT
+async function generatePDF(){
+  const {jsPDF}=window.jspdf;
+  const doc=new jsPDF();
+  doc.text("Executive SLA Performance Report",20,20);
+  doc.text("Total Tickets: "+document.getElementById("totalTickets").innerText,20,40);
+  doc.text("SLA Compliance: "+document.getElementById("slaValue").innerText,20,50);
+  doc.text("Avg Resolution: "+document.getElementById("avgRes").innerText+" hrs",20,60);
+  doc.save("SLA_Report.pdf");
 }
 </script>
 
